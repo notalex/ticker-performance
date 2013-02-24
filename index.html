@@ -7,10 +7,22 @@
     <script src='js/kinetic-v4.3.0-beta2.js' type='text/javascript'></script>
     <script src='js/fixtures.js' type='text/javascript'></script>
     <script src='js/ticker.js' type='text/javascript'></script>
+    <script src='js/multi-element-ticker.js' type='text/javascript'></script>
   </head>
   <body>
+    <h3>Simple plain string.</h3>
     <div class='ticker-with-plain-text'>
       <canvas height='40' id='ticker-with-plain-text' width='900'></canvas>
+      <p>
+        <button>
+          Start/Stop
+        </button>
+      </p>
+    </div>
+    <hr>
+    <h3>Individual elements added using a list.</h3>
+    <div class='multi-element-ticker'>
+      <canvas height='40' id='multi-element-ticker' width='900'></canvas>
       <p>
         <button>
           Start/Stop
