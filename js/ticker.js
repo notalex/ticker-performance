@@ -1,9 +1,9 @@
 (function() {
-  var Context2d, elementList;
+  var ContextCreator, elementList;
 
   elementList = getElementsList();
 
-  Context2d = (function() {
+  ContextCreator = (function() {
     var addMissingAttributes, defaultColor, defaultText, imagePosition, intermediateSpace, textPosition;
 
     defaultColor = 'black';
@@ -35,33 +35,32 @@
       return text;
     };
 
-    function Context2d(id, initialPosition) {
+    function ContextCreator(id, initialPosition) {
       if (initialPosition == null) initialPosition = 5;
       this.canvas = document.getElementById(id);
       this.context = this.canvas.getContext('2d');
+      this.context.font = '15px Arial';
       this.position = initialPosition;
     }
 
-    Context2d.prototype.incrementPosition = function(object) {
+    ContextCreator.prototype.incrementPosition = function(object) {
       return this.position += object.width + intermediateSpace;
     };
 
-    Context2d.prototype.fillText = function(customText) {
+    ContextCreator.prototype.fillText = function(customText) {
       var metrics, text;
       text = addMissingAttributes(customText);
-      this.context.font = text.fontType;
       this.context.fillStyle = text.fontColor;
       this.context.fillText(text.value, this.position, textPosition.y);
       metrics = this.context.measureText(text.value);
       return this.incrementPosition(metrics);
     };
 
-    Context2d.prototype.fillPlainText = function(text) {
-      this.context.font = defaultText().fontType;
+    ContextCreator.prototype.fillPlainText = function(text) {
       return this.context.fillText(text, this.position, textPosition.y);
     };
 
-    Context2d.prototype.addImage = function(path) {
+    ContextCreator.prototype.addImage = function(path) {
       var image;
       image = new Image();
       image.src = "assets/" + path;
@@ -69,48 +68,53 @@
       return this.incrementPosition(image);
     };
 
-    return Context2d;
+    return ContextCreator;
 
   })();
 
   $(function() {
-    var addElements, animate, canvas, fun, pos, px, startPosition, textWidth, toggleTicker, value, wrappedContext;
-    startPosition = 200;
-    wrappedContext = new Context2d('ticker-with-plain-text', startPosition);
+    var addElements, animate, canvas, currentPosition, delayedAnimation, index, message, refreshMessageList, startPosition, textWidth, toggleTicker, wrappedContext;
+    index = 0;
+    startPosition = 800;
+    wrappedContext = new ContextCreator('ticker-with-plain-text', startPosition);
     canvas = wrappedContext.canvas;
-    value = 'This is one large piece of long text which has no breaking parts in it. Its just text and nothing else. The more content that is aded, teh more crapier it gets. So lets get it on';
-    addElements = function(elements) {
-      return wrappedContext.fillPlainText(value);
+    currentPosition = startPosition;
+    message = '';
+    toggleTicker = false;
+    refreshMessageList = function() {
+      var i, msg, _ref;
+      msg = '';
+      for (i = index, _ref = index + 14; index <= _ref ? i <= _ref : i >= _ref; index <= _ref ? i++ : i--) {
+        msg += "AAPL +5" + i + " ";
+      }
+      return message = msg;
     };
-    addElements(elementList);
-    px = 1;
-    pos = startPosition;
-    textWidth = wrappedContext.context.measureText(value).width;
+    addElements = function() {
+      return wrappedContext.fillPlainText(message);
+    };
+    refreshMessageList();
+    addElements();
+    textWidth = wrappedContext.context.measureText(message).width;
     animate = function() {
-      var funy;
       if (toggleTicker) {
-        pos -= px;
+        currentPosition -= 1;
         wrappedContext.context.clearRect(0, 0, canvas.width, canvas.height);
-        wrappedContext.position = pos;
-        addElements(elementList);
-        if ((pos + textWidth) < canvas.width) {
-          wrappedContext.position = pos + textWidth;
-          addElements(elementList);
+        wrappedContext.position = currentPosition;
+        addElements();
+        if ((currentPosition + textWidth) < canvas.width) {
+          wrappedContext.position = currentPosition + textWidth;
+          addElements();
         }
-        if (pos < -textWidth) {
-          pos += textWidth;
-          funy = function() {
-            return addElements(elementList);
-          };
-          return setTimeout(funy, 1000);
+        if (currentPosition < -textWidth) {
+          currentPosition += textWidth;
+          return refreshMessageList();
         }
       }
     };
-    toggleTicker = false;
-    fun = function() {
+    delayedAnimation = function() {
       return setInterval(animate, 33);
     };
-    setTimeout(fun, 2000);
+    setTimeout(delayedAnimation, 2000);
     return $('.ticker-with-plain-text').find('button').click(function() {
       return toggleTicker = !toggleTicker;
     });
