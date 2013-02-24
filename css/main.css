@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+  height: auto;
+  width: auto;
+  float: none;
+  z-index: auto;
+  overflow: visible; }
+
+html, body {
+  height: 100%; }
+
+body {
+  font-family: Verdana;
+  text-align: center; }
+
+.ticker-with-plain-text button {
+  margin-left: 800px; }
