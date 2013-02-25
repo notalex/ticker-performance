@@ -1,105 +1,12 @@
 window.getElementsList = ->
-  [
-    {
-      value1: 'AAPL'
-      value2: '22.33%'
-      value3: '56.5'
-      imageType: 'up'
-    },
-    {
-      value1: 'GOOG'
-      value2: '52.35%'
-      value3: '57.5'
-      imageType: 'down'
-    },
-    {
-      value1: 'MSFT'
-      value2: '88.83%'
-      value3: '5666.5'
-      imageType: 'stable'
-    },
-    {
-      value1: 'ABC'
-      value2: '2.4%'
-      value3: '234.5'
-      imageType: 'stable'
-    },
-    {
-      value1: 'AAPL'
-      value2: '22.33%'
-      value3: '56.5'
-      imageType: 'up'
-    },
-    {
-      value1: 'GOOG'
-      value2: '52.35%'
-      value3: '57.5'
-      imageType: 'down'
-    },
-    {
-      value1: 'MSFT'
-      value2: '88.83%'
-      value3: '5666.5'
-      imageType: 'stable'
-    },
-    {
-      value1: 'ABC'
-      value2: '2.4%'
-      value3: '234.5'
-      imageType: 'stable'
-    },
-    {
-      value1: 'AAPL'
-      value2: '22.33%'
-      value3: '56.5'
-      imageType: 'up'
-    },
-    {
-      value1: 'GOOG'
-      value2: '52.35%'
-      value3: '57.5'
-      imageType: 'down'
-    },
-    {
-      value1: 'MSFT'
-      value2: '88.83%'
-      value3: '5666.5'
-      imageType: 'stable'
-    },
-    {
-      value1: 'ABC'
-      value2: '2.4%'
-      value3: '234.5'
-      imageType: 'stable'
-    },
-    {
-      value1: 'AAPL'
-      value2: '22.33%'
-      value3: '56.5'
-      imageType: 'up'
-    },
-    {
-      value1: 'GOOG'
-      value2: '52.35%'
-      value3: '57.5'
-      imageType: 'down'
-    },
-    {
-      value1: 'MSFT'
-      value2: '88.83%'
-      value3: '5666.5'
-      imageType: 'stable'
-    },
-    {
-      value1: 'ABC'
-      value2: '2.4%'
-      value3: '234.5'
-      imageType: 'stable'
-    },
-    {
-      value1: 'DJI'
-      value2: '5.33%'
-      value3: '256.5'
-      imageType: 'up'
-    }
-  ]
+  range1 = [1..100]
+  range2 = [200..1200]
+
+  createRandomObject = (index) ->
+    value1: "ABC#{ index }"
+    value2: "#{ range1[Math.round(Math.random() * (range1.length - 1))] }%"
+    value3: range2[Math.round(Math.random() * (range2.length - 1))]
+    imageType: ['up', 'down', 'stable'][Math.round(Math.random() * 2)]
+    unicode: ['▲', '►', '▼'][Math.round(Math.random() * 2)]
+    
+  [1..40].map createRandomObject

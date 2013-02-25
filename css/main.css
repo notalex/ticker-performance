@@ -16,3 +16,6 @@ body {
 
 button {
   margin-left: 800px; }
+
+.hidden {
+  display: none; }
