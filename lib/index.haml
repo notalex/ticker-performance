@@ -9,6 +9,7 @@
     %script{ type: "text/javascript", src: "js/ticker.js"}
     %script{ type: "text/javascript", src: "js/multi-element-ticker.js"}
     %script{ type: "text/javascript", src: "js/multi-element-colored-ticker.js"}
+    %script{ type: "text/javascript", src: "js/multi-element-ticker-using-image.js"}
   %body
     %h3 Simple plain string.
     .ticker-with-plain-text
@@ -30,6 +31,15 @@
     %h3 Individual elements with image added using a list.
     .multi-element-colored-ticker
       %canvas#multi-element-colored-ticker{ width: '900', height: '40' }
+      %p
+        %button
+          Start/Stop
+
+    %hr
+
+    %h3 Converting rendered block into image and changing image position dynamically.
+    .multi-element-ticker-using-image
+      %canvas#multi-element-ticker-using-image{ width: '900', height: '40' }
       %p
         %button
           Start/Stop
