@@ -8,6 +8,7 @@
     %script{ type: "text/javascript", src: "js/fixtures.js"}
     %script{ type: "text/javascript", src: "js/ticker.js"}
     %script{ type: "text/javascript", src: "js/multi-element-ticker.js"}
+    %script{ type: "text/javascript", src: "js/multi-element-colored-ticker.js"}
   %body
     %h3 Simple plain string.
     .ticker-with-plain-text
@@ -21,6 +22,14 @@
     %h3 Individual elements added using a list.
     .multi-element-ticker
       %canvas#multi-element-ticker{ width: '900', height: '40' }
+      %p
+        %button
+          Start/Stop
+    %hr
+
+    %h3 Individual elements with image added using a list.
+    .multi-element-colored-ticker
+      %canvas#multi-element-colored-ticker{ width: '900', height: '40' }
       %p
         %button
           Start/Stop
