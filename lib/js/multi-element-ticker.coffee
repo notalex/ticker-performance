@@ -1,20 +1,9 @@
 elementsList = getElementsList()
 
 class ContextCreator
-  defaultColor = 'black'
   intermediateSpace = 3
   textPosition = { y: 18 }
   imagePosition = { y: 5 }
-
-  defaultText = ->
-    fontType: '15px Arial'
-    fontColor: 'black'
-
-  addMissingAttributes = (customText) ->
-    text = defaultText()
-    for key, value of customText
-      text[key] = value
-    text
 
   constructor: (id, initialPosition = 5) ->
     @canvas = document.getElementById(id)
@@ -30,17 +19,7 @@ class ContextCreator
     metrics = @context.measureText(text.value)
     @incrementPosition(metrics)
 
-  fillPlainText: (text) ->
-    @context.fillText text, @position, textPosition.y
-
-  addImage: (path) ->
-    image = new Image()
-    image.src = "assets/#{ path }"
-    @context.drawImage(image, @position, imagePosition.y)
-    @incrementPosition(image)
-
 $ ->
-  index = 0
   startPosition = 800
   wrappedContext = new ContextCreator('multi-element-ticker', startPosition)
   canvas = wrappedContext.canvas
@@ -50,7 +29,6 @@ $ ->
   addElements = ->
     for element in elementsList
       wrappedContext.fillText({ value: element.value1 })
-      #wrappedContext.addImage("#{ element.imageType }-arrow.png")
       wrappedContext.fillText
         value: element.value2
       wrappedContext.fillText

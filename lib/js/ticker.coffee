@@ -1,20 +1,6 @@
-elementList = getElementsList()
-
 class ContextCreator
-  defaultColor = 'black'
-  intermediateSpace = 3
   textPosition = { y: 18 }
   imagePosition = { y: 5 }
-
-  defaultText = ->
-    fontType: '15px Arial'
-    fontColor: 'black'
-
-  addMissingAttributes = (customText) ->
-    text = defaultText()
-    for key, value of customText
-      text[key] = value
-    text
 
   constructor: (id, initialPosition = 5) ->
     @canvas = document.getElementById(id)
@@ -22,24 +8,8 @@ class ContextCreator
     @context.font = '15px Arial'
     @position = initialPosition
 
-  incrementPosition: (object) ->
-    @position += (object.width + intermediateSpace)
-
-  fillText: (customText)->
-    text = addMissingAttributes(customText)
-    @context.fillStyle = text.fontColor
-    @context.fillText text.value, @position, textPosition.y
-    metrics = @context.measureText(text.value)
-    @incrementPosition(metrics)
-
   fillPlainText: (text) ->
     @context.fillText text, @position, textPosition.y
-
-  addImage: (path) ->
-    image = new Image()
-    image.src = "assets/#{ path }"
-    @context.drawImage(image, @position, imagePosition.y)
-    @incrementPosition(image)
 
 $ ->
   index = 0
